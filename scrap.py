@@ -42,25 +42,28 @@ doc = BeautifulSoup(page_contents, 'html.parser')
 
 
 "THE RATINGS"
-rating_divs = doc.find_all('div', class_='ipl-rating-star small')
+# rating_divs = doc.find_all('div', class_='ipl-rating-star small')
 
 
-for rating_div in rating_divs:
-    rating_span = rating_div.find('span', class_='ipl-rating-star__rating')
-    if rating_span:
-        rating_value = rating_span.text.strip()
-        print(rating_value)
-    else:
-        print("Rating element not found.")
+# for rating_div in rating_divs:
+#     rating_span = rating_div.find('span', class_='ipl-rating-star__rating')
+#     if rating_span:
+#         rating_value = rating_span.text.strip()
+#         print(rating_value)
+#     else:
+#         print("Rating element not found.")
 
 "MOVIE STARS"
-movie_stars = doc.find_all('p', class_='text-muted text-small')
-for ele in movie_stars:
-    director_tag = ele.find('a')
-    if director_tag:
-        print(director_tag.text)
+actor_p = doc.find('p', class_='text-muted text-small')
 
-print("hhhh")
+# Extract all the actor names
+actor_names = [a.text for a in actor_p.find_all('a', {'href': lambda x: x and 'ref_=ttls_li_st_' in x})]
+
+# Print the actor names
+for actor_name in actor_names:
+    print(actor_name)
+
+
 
 
 
