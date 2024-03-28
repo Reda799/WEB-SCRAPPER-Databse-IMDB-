@@ -60,7 +60,7 @@ for ele in movie_stars:
     if director_tag:
         print(director_tag.text)
 
-
+print("hhhh")
 
 
 
