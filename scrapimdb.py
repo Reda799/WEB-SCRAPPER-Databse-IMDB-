@@ -61,12 +61,32 @@ doc = BeautifulSoup(page_contents, 'html.parser')
 # Print the actor names
 
 "PRIZES AND SHIT"
-movie_prizes = doc.find_all('div', class_='list-description')
-for ele in movie_prizes:
+# movie_prizes = doc.find_all('div', class_='list-description')
+# for ele in movie_prizes[1:]:
+ 
    
- print(ele.find('p').text)
- print("item finished")
+#  print(ele.find('p').text)
+ 
+#  print("item finished")
 
+"Gross earnings"
+span_elements = doc.find_all('span', {'name': 'nv', 'data-value': True})
+    
+    # Iterate over each span element
+
+    
+    # Find all span elements with the specified attributes
+span_elements = doc.find_all('span', {'name': 'nv', 'data-value': True})
+    
+    # Iterate over each span element
+for span_element in span_elements:
+        # Extract the text content
+        text_content = span_element.text
+        
+        # Check if the text content ends with "M"
+        if text_content.endswith("M"):
+            print("Text Content:", text_content)
+            
 
 
 
