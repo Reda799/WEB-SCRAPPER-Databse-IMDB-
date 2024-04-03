@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import json
 
 r = requests.get('https://www.imdb.com/list/ls055592025/')
 page_contents = r.text
@@ -15,8 +16,9 @@ Ratings=[]
 Stars=[]
 Gross=[]
 Votes=[]
-OscarNomination=[]
-Oscars=[]
+OscarNominations=[]
+Prizes=[]
+OscarsWon=[]
 # movie_data=doc.find_all('div',attrs={'class':'lister-item mode-detail'})
 
 
@@ -122,15 +124,29 @@ for i in movie_data:
     Votes.append(vote)
     grosses=value[1].text if len(value)>1 else '*****'
     Gross.append(grosses)
-## Oscars  
-    # oscar_info = i.find(text='Oscars:')
-    # oscar_nominations = oscar_info.find_next_sibling(text='Oscar Nominations:')
-    # oscars = oscar_info.find_next_sibling().find_next_sibling().strip()
-    # Oscars.append(oscars + " (" + oscar_nominations + ")")
-    # print(Oscars)
+# Prizes^
+    prize_info = i.find('div', class_='list-description').get_text(strip=True)
+    prize_lines = prize_info.split('\n')
+    for line in prize_lines:
+        if "Oscar Nominations" in line:
+            nominations = int(line.split(':')[1].strip())
+            OscarNominations.append(nominations)
+            break
+    else:
+        OscarNominations.append(None)
+# print(OscarNominations)        
+    
+    
+    
+    
+
+   
+
   
 
 
-movie_DF=pd.DataFrame({'Name Of Movie':Name , 'Release Year':Year,'Genre':Genre,'Duration In Minutes':Time,'Ratings':Ratings,'Votes':Votes,'Gross Earnings':Gross})    
+movie_DF=pd.DataFrame({'Name Of Movie':Name , 'Release Year':Year,'Genre':Genre,'Duration In Minutes':Time,'Ratings':Ratings,'Votes':Votes,'Gross Earnings':Gross,'Oscar Nominations':OscarNominations})    
 
 # print(movie_DF)
+
+
