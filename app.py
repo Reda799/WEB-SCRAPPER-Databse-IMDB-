@@ -51,6 +51,11 @@ def sort_movies(criterion):
         sorted_movies = sorted(movies_data, key=lambda x: get_value(x, 'Release Year'))
     elif criterion == 'Newest':
         sorted_movies = sorted(movies_data, key=lambda x: get_value(x, 'Release Year'), reverse=True)
+    elif criterion == 'Alphabetic Order':
+        sorted_movies = sorted(movies_data, key=lambda x: x['Name Of Movie'].upper())  # Use upper() for case-insensitive sort
+    elif criterion == 'Ratings':
+        sorted_movies = sorted(movies_data, key=lambda x: x['Ratings'], reverse=True)
+
     update_display(sorted_movies)
    
     update_display(sorted_movies)
