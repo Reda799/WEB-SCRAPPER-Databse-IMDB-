@@ -61,12 +61,26 @@ for i in movie_data:
         OscarsWon.append(None)
     
 # print(OscarsWon)        
+# Extract the year from the 'Release Year' string
+import re 
+def extract_year(year_str):
+    year = year_str.strip("()")
+    # Match only the first four digits (the year)
+    match = re.search(r'\b(19|20)\d{2}\b', year)
+    if match:
+        return int(match.group(0))
+    return None  # If no valid year is found, return None
 
+# Clean the 'Year' list using the function defined above
+cleaned_years = [extract_year(y) for y in Year]
+Year = cleaned_years
 
 movie_DF = pd.DataFrame({'Name Of Movie': Name, 'Release Year': Year, 'Genre': Genre, 'Duration In Minutes': Time,
                          'Ratings': Ratings, 'Votes': Votes, 'Gross Earnings': Gross,
                          'Oscar Nominations': OscarNominations, 'Oscars Won': OscarsWon})
 # print(movie_DF)
  
+movie_DF['Oscar Nominations'].fillna(0, inplace=True)
+movie_DF['Oscars Won'].fillna(0, inplace=True)
 
-movie_DF.to_csv("ImdbCSV.csv")
+movie_DF.to_csv("ImdbCSV2.csv")
