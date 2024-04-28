@@ -6,11 +6,11 @@ import pandas as pd
 df = pd.read_csv('ImdbCSV.csv')  # Replace with the path to your CSV file
 root = tk.Tk()
 root.title("  Movies")
-root.configure(background="#2b2b2b") 
+root.configure(background="#8B0000") 
 root.iconbitmap('icon.ico')
 
 
-title_label = tk.Label(root, text="TOP 100 GREATEST MOVIES  OF ALL TIME ACOORDING TO IMDB", font=("Arial", 24, "bold"), bg="#2b2b2b", fg="white")
+title_label = tk.Label(root, text="TOP 100 GREATEST MOVIES  OF ALL TIME ACOORDING TO IMDB", font=("Arial", 24, "bold"), bg="#8B0000", fg="#FFD700")
 title_label.pack(fill='x', pady=10)  # Pack it to fill along the x-axis and add some padding at the y-axis for space
 
 # Function to create a frame for each movie's details

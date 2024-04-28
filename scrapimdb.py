@@ -6,7 +6,7 @@ import pandas as pd
 r = requests.get('https://www.imdb.com/list/ls055592025/')
 page_contents = r.text
 doc = BeautifulSoup(page_contents, 'html.parser')
-
+#Initializing empty lists
 Name = []
 Year = []
 Genre = []
