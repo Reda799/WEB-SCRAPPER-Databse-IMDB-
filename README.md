@@ -42,3 +42,6 @@ requests: Allows sending HTTP requests to fetch web pages for scraping.
 bs4 (BeautifulSoup): Used for parsing HTML and XML documents, making it easier to scrape data.
 pandas:used to arrange the data that has been scraped by constructing and modifying data structures.
 re (regex): used to carry out tasks using regular expressions, including pattern extraction from text.
+WebURL /HTTPS:https://github.com/Reda799/WEB-SCRAPPER-Databse-IMDB-.git
+Github CLi:gh repo clone Reda799/WEB-SCRAPPER-Databse-IMDB-
+
