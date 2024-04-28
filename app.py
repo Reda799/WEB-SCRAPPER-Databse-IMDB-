@@ -3,32 +3,38 @@ from tkinter import ttk
 import pandas as pd
 
 # Load the CSV data
-df = pd.read_csv('ImdbCSV2.csv')  # Replace with the path to your CSV file
+df = pd.read_csv('ImdbCSV.csv')  # Replace with the path to your CSV file
+root = tk.Tk()
+root.title("Movies")
+root.configure(background="#2b2b2b") 
+
+title_label = tk.Label(root, text="TOP 100 GREATEST MOVIES  OF ALL TIME ACOORDING TO IMDB", font=("Arial", 24, "bold"), bg="#2b2b2b", fg="white")
+title_label.pack(fill='x', pady=10)  # Pack it to fill along the x-axis and add some padding at the y-axis for space
 
 # Function to create a frame for each movie's details
 def create_movie_frame(container, movie):
-    frame = ttk.Frame(container)
+    frame = ttk.Frame(container, padding="10", relief="groove")  # Added padding and relief for visual separation
     
-    # Title and Year
-    title_label = ttk.Label(frame, text=f"{movie['Name Of Movie']} {movie['Release Year']}", font=("Arial", 18, "bold"))
-    title_label.grid(row=0, column=0, sticky="W", pady=5)
+    # Title and Year with better alignment
+    title_label = ttk.Label(frame, text=f"{movie['Name Of Movie']} ({movie['Release Year']})", font=("Arial", 16, "bold"))
+    title_label.grid(row=0, column=0, sticky="W")
 
     # Rating
-    rating_label = ttk.Label(frame, text=f"Rating: {movie['Ratings']} | Run Time(in Minutes): {movie['Duration In Minutes']}")
+    rating_label = ttk.Label(frame, text=f"Rating: {movie['Ratings']} | Runtime: {movie['Duration In Minutes']} min", font=("Arial", 12))
     rating_label.grid(row=1, column=0, sticky="W")
+    rating_label.config(foreground="blue")
 
-    # Votes and Gross
-    votes_gross_label = ttk.Label(frame, text=f"Votes: {movie['Votes']} | Gross: {movie['Gross Earnings']}")
+    # Votes and Gross in a more compact form
+    votes_gross_label = ttk.Label(frame, text=f"Votes: {movie['Votes'] } | Gross: {movie['Gross Earnings']}", font=("Arial", 12))
     votes_gross_label.grid(row=2, column=0, sticky="W")
 
-    # Oscars
-    oscars_label = ttk.Label(frame, text=f"Oscars: {movie['Oscars Won']} | Oscar Nominations: {movie['Oscar Nominations']}")
+    # Oscars with conditional highlighting
+    oscars_text = f"Oscars Won: {movie['Oscars Won']} | Oscar Nominations: {movie['Oscar Nominations']}"
+    oscars_label = ttk.Label(frame, text=oscars_text, font=("Arial", 12, "italic"))
+    
+    oscars_label.config(foreground="red")  # Highlight if Oscars are won
     oscars_label.grid(row=3, column=0, sticky="W")
-    
-    # Add padding to the frame and return it
-    for child in frame.winfo_children():
-        child.grid_configure(padx=8, pady=2)
-    
+
     return frame
 def update_display(sorted_movies):
     # Clear existing frames
@@ -79,8 +85,7 @@ def sort_movies(criterion):
 
 
 # Create the main application window
-root = tk.Tk()
-root.title("Movie Details")
+
 
 # Create a scrollable canvas
 canvas = tk.Canvas(root)
@@ -98,7 +103,6 @@ canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
 canvas.configure(yscrollcommand=scrollbar.set)
 
 # Load the movie data
-movies_data = df.to_dict(orient="records")
 
 # Create a combobox for sorting options
 sort_options = ['Oldest', 'Newest','Ratings','Most Gross Income', 'Most Oscars Won', 'Most Oscar Nominations']
@@ -106,6 +110,9 @@ sort_combobox = ttk.Combobox(root, values=sort_options, state='readonly')
 sort_combobox.pack(fill='x', padx=10, pady=5)
 sort_combobox.set('Sort by')
 sort_combobox.bind('<<ComboboxSelected>>', lambda event: sort_movies(sort_combobox.get()))
+# Load the movie data
+movies_data = df.to_dict(orient="records")
+
 
 
 # Iterate over the movies and create a frame for each
