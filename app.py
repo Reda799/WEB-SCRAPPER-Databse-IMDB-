@@ -5,8 +5,10 @@ import pandas as pd
 # Load the CSV data
 df = pd.read_csv('ImdbCSV.csv')  # Replace with the path to your CSV file
 root = tk.Tk()
-root.title("Movies")
+root.title("  Movies")
 root.configure(background="#2b2b2b") 
+root.iconbitmap('icon.ico')
+
 
 title_label = tk.Label(root, text="TOP 100 GREATEST MOVIES  OF ALL TIME ACOORDING TO IMDB", font=("Arial", 24, "bold"), bg="#2b2b2b", fg="white")
 title_label.pack(fill='x', pady=10)  # Pack it to fill along the x-axis and add some padding at the y-axis for space
