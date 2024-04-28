@@ -26,6 +26,16 @@ pip install requests
 pip install beautifulsoup4
 3.Prepare the Environment
 Place the script files (app.py and scrapimdb.py) and the data file (ImdbCSV.csv) in the same directory.
+
+Instructions on How to Run the Program:
+1.Run the Web Scraping Script:
+To begin scraping and processing the IMDb data, navigate to the directory holding the script files and run scrapimdb.py:
+python scrapimdb.py
+This script fetches the latest movie data from IMDb and saves it to ImdbCSV.csv.
+2.Launch the GUI Application:
+Once the data is prepared, start the GUI application by running:
+python app.py
+This launches the graphical user interface (GUI), which presents the movie data in an approachable manner for interaction and exploration of different cinematic insights.
 pandas: Used for loading, manipulating, and displaying data from the ImdbCSV.csv file.
 
 requests: Allows sending HTTP requests to fetch web pages for scraping.
