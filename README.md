@@ -16,6 +16,16 @@ Movie buffs or scholars who want to examine IMDb movie data without having to br
 All libraries/Packages Used:
 tkinter: Used for creating the GUI elements in the application.
 ttk (from tkinter): Provides access to themed widgets that enhance the appearance of the application.
+
+Installation Instructions:
+1.Install Python
+2.Install Required Libraries
+Open a terminal or command prompt and install the necessary Python libraries by executing:
+pip install pandas
+pip install requests
+pip install beautifulsoup4
+3.Prepare the Environment
+Place the script files (app.py and scrapimdb.py) and the data file (ImdbCSV.csv) in the same directory.
 pandas: Used for loading, manipulating, and displaying data from the ImdbCSV.csv file.
 
 requests: Allows sending HTTP requests to fetch web pages for scraping.
