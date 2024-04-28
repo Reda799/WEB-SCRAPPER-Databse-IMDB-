@@ -1,10 +1,10 @@
 
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd
-
-r = requests.get('https://www.imdb.com/list/ls055592025/')
-page_contents = r.text
+import requests #used to make HTTP requests
+from bs4 import BeautifulSoup # use to pull data out of HTML
+import pandas as pd # used to store the scraped data and turn it into csv
+#Sending a GET request to the IMDb page and parsing the page content:
+r = requests.get('https://www.imdb.com/list/ls055592025/')#fetche the HTML content of the IMDb page
+page_contents = r.text #get the text content of the response
 doc = BeautifulSoup(page_contents, 'html.parser')
 #Initializing empty lists
 Name = []
@@ -16,16 +16,16 @@ Votes = []
 Gross = []
 OscarNominations = []
 OscarsWon = []
-
+#Looping through each movie in the html page and extracting information and details:
 movie_data = doc.find_all('div', attrs={'class': 'lister-item mode-detail'})
 for i in movie_data:
-    
+    # extracting the name of  the movie
     name = i.h3.a.text
     Name.append(name)
-
+    # The realease year
     movie_year = i.find('span', class_='lister-item-year text-muted unbold').get_text(strip=True)
     Year.append(movie_year)
-
+    # The movie Genre 
     movies_genre = i.find('span', class_='genre').get_text(strip=True)
     Genre.append(movies_genre)
 
@@ -78,7 +78,7 @@ Year = cleaned_years
 movie_DF = pd.DataFrame({'Name Of Movie': Name, 'Release Year': Year, 'Genre': Genre, 'Duration In Minutes': Time,
                          'Ratings': Ratings, 'Votes': Votes, 'Gross Earnings': Gross,
                          'Oscar Nominations': OscarNominations, 'Oscars Won': OscarsWon})
-# print(movie_DF)
+
  
 movie_DF['Oscar Nominations'].fillna(0, inplace=True)
 movie_DF['Oscars Won'].fillna(0, inplace=True)

@@ -22,12 +22,12 @@ def create_movie_frame(container, movie):
     title_label.grid(row=0, column=0, sticky="W")
 
     # Rating
-    rating_label = ttk.Label(frame, text=f"Rating: {movie['Ratings']} | Runtime: {movie['Duration In Minutes']} min", font=("Arial", 12))
+    rating_label = ttk.Label(frame, text=f"Rating: {movie['Ratings']} |  Runtime: {movie['Duration In Minutes']} min", font=("Arial", 12))
     rating_label.grid(row=1, column=0, sticky="W")
     rating_label.config(foreground="blue")
 
     # Votes and Gross in a more compact form
-    votes_gross_label = ttk.Label(frame, text=f"Votes: {movie['Votes'] } | Gross: {movie['Gross Earnings']}", font=("Arial", 12))
+    votes_gross_label = ttk.Label(frame, text=f"Votes: {movie['Votes'] } | Genre: {movie['Genre']} | Gross: {movie['Gross Earnings']}", font=("Arial", 12))
     votes_gross_label.grid(row=2, column=0, sticky="W")
 
     # Oscars with conditional highlighting
