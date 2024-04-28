@@ -45,6 +45,13 @@ def sort_movies(criterion):
             return int(movie[key]) if key != 'Name Of Movie' else movie[key]
         except ValueError:
             return 0 if key in ['Oscars Won', 'Oscar Nominations'] else "A very old year"
+    def convert_gross(gross_str):
+        if gross_str.startswith('$') and gross_str.endswith('M'):
+            return float(gross_str[1:-1]) * 1_000_000
+        elif gross_str.startswith('$') and gross_str.endswith('K'):
+            return float(gross_str[1:-1]) * 1_000
+        return 0
+
     
 
     if criterion == 'Oldest':
@@ -55,6 +62,9 @@ def sort_movies(criterion):
         sorted_movies = sorted(movies_data, key=lambda x: x['Name Of Movie'].upper())  # Use upper() for case-insensitive sort
     elif criterion == 'Ratings':
         sorted_movies = sorted(movies_data, key=lambda x: x['Ratings'], reverse=True)
+    elif criterion == 'Most Gross Income':
+        sorted_movies = sorted(movies_data, key=lambda x: convert_gross(x['Gross Earnings']), reverse=True)
+
 
     update_display(sorted_movies)
    
@@ -86,7 +96,7 @@ canvas.configure(yscrollcommand=scrollbar.set)
 movies_data = df.to_dict(orient="records")
 
 # Create a combobox for sorting options
-sort_options = ['Oldest', 'Newest']
+sort_options = ['Oldest', 'Newest','Ratings','Most Gross Income']
 sort_combobox = ttk.Combobox(root, values=sort_options, state='readonly')
 sort_combobox.pack(fill='x', padx=10, pady=5)
 sort_combobox.set('Sort by')
