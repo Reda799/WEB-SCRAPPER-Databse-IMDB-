@@ -28,16 +28,17 @@ for i in movie_data:
     # The movie Genre 
     movies_genre = i.find('span', class_='genre').get_text(strip=True)
     Genre.append(movies_genre)
-
+    #Duration of the movie
     movie_time = i.find('span', class_='runtime').get_text(strip=True).replace('min', '')
     Time.append(int(movie_time))
-
+    # Ratings
     rating = i.find('div', class_='ipl-rating-star small').get_text(strip=True)
     Ratings.append(float(rating))
-
+    # Number of votes
     value = i.findAll('span', attrs={'name': 'nv'})
     vote = value[0].text
     Votes.append(vote)
+    # The gross income
     grosses = value[1].text if len(value) > 1 else 'NO Information '
     Gross.append(grosses)
 
@@ -60,8 +61,7 @@ for i in movie_data:
     else:
         OscarsWon.append(None)
     
-# print(OscarsWon)        
-# Extract the year from the 'Release Year' string
+# Extract the year integer  from the 'Release Year' string
 import re 
 def extract_year(year_str):
     year = year_str.strip("()")
@@ -74,7 +74,7 @@ def extract_year(year_str):
 # Clean the 'Year' list using the function defined above
 cleaned_years = [extract_year(y) for y in Year]
 Year = cleaned_years
-
+#Creating a pandas DataFrame:
 movie_DF = pd.DataFrame({'Name Of Movie': Name, 'Release Year': Year, 'Genre': Genre, 'Duration In Minutes': Time,
                          'Ratings': Ratings, 'Votes': Votes, 'Gross Earnings': Gross,
                          'Oscar Nominations': OscarNominations, 'Oscars Won': OscarsWon})
@@ -82,5 +82,5 @@ movie_DF = pd.DataFrame({'Name Of Movie': Name, 'Release Year': Year, 'Genre': G
  
 movie_DF['Oscar Nominations'].fillna(0, inplace=True)
 movie_DF['Oscars Won'].fillna(0, inplace=True)
-
+#Saving the DataFrame to a CSV file:
 movie_DF.to_csv("ImdbCSV.csv")
