@@ -2,6 +2,8 @@
 import requests #used to make HTTP requests
 from bs4 import BeautifulSoup # use to pull data out of HTML
 import pandas as pd # used to store the scraped data and turn it into csv
+import re #used to carry out tasks using regular expressions, including pattern extraction from text.
+
 #Sending a GET request to the IMDb page and parsing the page content:
 r = requests.get('https://www.imdb.com/list/ls055592025/')#fetche the HTML content of the IMDb page
 page_contents = r.text #get the text content of the response
@@ -62,7 +64,6 @@ for i in movie_data:
         OscarsWon.append(None)
     
 # Extract the year integer  from the 'Release Year' string
-import re 
 def extract_year(year_str):
     year = year_str.strip("()")
     # Match only the first four digits (the year)
