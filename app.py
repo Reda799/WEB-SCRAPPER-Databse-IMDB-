@@ -64,6 +64,11 @@ def sort_movies(criterion):
         sorted_movies = sorted(movies_data, key=lambda x: x['Ratings'], reverse=True)
     elif criterion == 'Most Gross Income':
         sorted_movies = sorted(movies_data, key=lambda x: convert_gross(x['Gross Earnings']), reverse=True)
+    elif criterion == 'Most Oscars Won':
+        sorted_movies = sorted(movies_data, key=lambda x: get_value(x, 'Oscars Won'), reverse=True)
+    elif criterion == 'Most Oscar Nominations':
+        sorted_movies = sorted(movies_data, key=lambda x: get_value(x, 'Oscar Nominations'), reverse=True)
+
 
 
     update_display(sorted_movies)
@@ -96,7 +101,7 @@ canvas.configure(yscrollcommand=scrollbar.set)
 movies_data = df.to_dict(orient="records")
 
 # Create a combobox for sorting options
-sort_options = ['Oldest', 'Newest','Ratings','Most Gross Income']
+sort_options = ['Oldest', 'Newest','Ratings','Most Gross Income', 'Most Oscars Won', 'Most Oscar Nominations']
 sort_combobox = ttk.Combobox(root, values=sort_options, state='readonly')
 sort_combobox.pack(fill='x', padx=10, pady=5)
 sort_combobox.set('Sort by')
