@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
-
 # Load the CSV data
 df = pd.read_csv('ImdbCSV.csv') 
+# Test if the csvfile is not empty and that 
+assert not df.empty, "Dataframe is empty. Check the CSV file path and content."
 # Initialize the main window of the application
 root = tk.Tk()
 root.title("  Movies")
@@ -36,6 +37,11 @@ def create_movie_frame(container, movie):
     # coloring with red
     oscars_label.config(foreground="red")  
     oscars_label.grid(row=3, column=0, sticky="W")
+    # Test that the movie frame contains all the required labels
+    assert title_label.winfo_exists(), "Title label does not exist in the movie frame."
+    assert rating_label.winfo_exists(), "Rating label does not exist in the movie frame."
+    assert votes_gross_label.winfo_exists(), "Votes/Gross label does not exist in the movie frame."
+    assert oscars_label.winfo_exists(), "Oscars label does not exist in the movie frame."
 
     return frame
  #function to update the display with sorted movie frames
@@ -135,4 +141,6 @@ canvas.pack(side="left", fill="both", expand=True)
 scrollbar.pack(side="right", fill="y")
 
 # Run the application
+
 root.mainloop()
+   
